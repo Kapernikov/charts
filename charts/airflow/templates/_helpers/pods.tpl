@@ -2,7 +2,11 @@
 Define the image configs for airflow containers
 */}}
 {{- define "airflow.image" }}
+{{- if .Values.airflow.image.imageSpec }}
+image: {{ .Values.airflow.image.imageSpec }}
+{{- else }}
 image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}
+{{- end }}
 imagePullPolicy: {{ .Values.airflow.image.pullPolicy }}
 securityContext:
   runAsUser: {{ .Values.airflow.image.uid }}
